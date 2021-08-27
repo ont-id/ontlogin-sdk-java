@@ -6,7 +6,7 @@ public class ClientResponse {
     private String did;
     private String nonce;
     private Proof proof;
-    private String[] vps;
+    private String[] VPs;
 
     public String getVer() {
         return ver;
@@ -48,11 +48,11 @@ public class ClientResponse {
         this.proof = proof;
     }
 
-    public String[] getVps() {
-        return vps;
+    public String[] getVPs() {
+        return VPs;
     }
 
-    public void setVps(String[] vps) {
-        this.vps = vps;
+    public void setVPs(String[] vps) {
+        this.VPs = vps;
     }
 }

@@ -7,7 +7,7 @@ public class ServerHello {
     private ServerInfo server;
     private String[] chain;
     private String[] alg;
-    private VCFilter[] vcFilters;
+    private VCFilter[] VCFilters;
     private ServerProof serverProof;
     private Extension extension;
 
@@ -59,12 +59,12 @@ public class ServerHello {
         this.alg = alg;
     }
 
-    public VCFilter[] getVcFilters() {
-        return vcFilters;
+    public VCFilter[] getVCFilters() {
+        return VCFilters;
     }
 
-    public void setVcFilters(VCFilter[] vcFilters) {
-        this.vcFilters = vcFilters;
+    public void setVCFilters(VCFilter[] VCFilters) {
+        this.VCFilters = VCFilters;
     }
 
     public ServerProof getServerProof() {

@@ -43,7 +43,7 @@ public abstract class OntLoginSdk {
         serverHello.setServer(sdkConfig.getServerInfo());
         serverHello.setChain(sdkConfig.getChain());
         serverHello.setAlg(sdkConfig.getAlg());
-        serverHello.setVcFilters(sdkConfig.getVcFilters().get(Const.ACTION_REGISTER));
+        serverHello.setVCFilters(sdkConfig.getVcFilters().get(Const.ACTION_REGISTER));
         return serverHello;
     }
 
@@ -99,7 +99,7 @@ public abstract class OntLoginSdk {
         didProcessor.verifySig(did, index, dataToSign.getBytes(), sigData);
 
         //verify presentation
-        String[] vps = res.getVps();
+        String[] vps = res.getVPs();
         if (vps != null && vps.length > 0) {
             VCFilter[] requiredTypes = sdkConfig.getVcFilters().get(type);
             for (int i = 0; i < vps.length; i++) {
