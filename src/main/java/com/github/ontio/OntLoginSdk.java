@@ -21,9 +21,9 @@ public abstract class OntLoginSdk {
         this.didProcessors = didProcessors;
     }
 
-    abstract String genRandomNonceFunc();
+    public abstract String genRandomNonceFunc();
 
-    abstract void checkNonceExistFunc(String nonce);
+    public abstract void checkNonceExistFunc(String nonce);
 
     public String getDIDChain(String did) throws SDKException {
         String[] tmpArr = did.split(":");

@@ -3,7 +3,7 @@ package com.github.ontio.modules;
 public class Proof {
     private String type;
     private String verificationMethod;
-    private String created;
+    private int created;
     private String value;
 
     public String getType() {
@@ -22,11 +22,11 @@ public class Proof {
         this.verificationMethod = verificationMethod;
     }
 
-    public String getCreated() {
+    public int getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(int created) {
         this.created = created;
     }
 

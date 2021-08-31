@@ -8,7 +8,7 @@ public class ClientResponseMsg {
     private ServerInfoToSign server;
     private String nonce;
     private String did;
-    private String created;
+    private int created;
 
     public String getType() {
         return type;
@@ -42,11 +42,11 @@ public class ClientResponseMsg {
         this.did = did;
     }
 
-    public String getCreated() {
+    public int getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(int created) {
         this.created = created;
     }
 }

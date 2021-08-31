@@ -34,12 +34,12 @@ public class OntSdkTest {
 
         ontLoginSdk = new OntLoginSdk(sdkConfig, resolvers) {
             @Override
-            String genRandomNonceFunc() {
-                return UUID.randomUUID().toString();
+            public String genRandomNonceFunc() {
+                return UUID.randomUUID().toString().replace("-", "");
             }
 
             @Override
-            void checkNonceExistFunc(String nonce) {
+            public void checkNonceExistFunc(String nonce) {
 
             }
         };

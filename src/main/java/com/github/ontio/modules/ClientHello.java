@@ -3,7 +3,6 @@ package com.github.ontio.modules;
 public class ClientHello {
     private String ver;
     private String type;
-    private String name;
     private String action;
     private ClientChallenge clientChallenge;
 
@@ -21,14 +20,6 @@ public class ClientHello {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getAction() {
