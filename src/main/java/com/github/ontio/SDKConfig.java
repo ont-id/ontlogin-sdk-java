@@ -9,7 +9,7 @@ public class SDKConfig {
     private String[] chain;
     private String[] alg;
     private ServerInfo serverInfo;
-    private Map<String, VCFilter[]> vcFilters;
+    private Map<Integer, VCFilter[]> vcFilters;
 
     public String[] getChain() {
         return chain;
@@ -35,11 +35,11 @@ public class SDKConfig {
         this.serverInfo = serverInfo;
     }
 
-    public Map<String, VCFilter[]> getVcFilters() {
+    public Map<Integer, VCFilter[]> getVcFilters() {
         return vcFilters;
     }
 
-    public void setVcFilters(Map<String, VCFilter[]> vcFilters) {
+    public void setVcFilters(Map<Integer, VCFilter[]> vcFilters) {
         this.vcFilters = vcFilters;
     }
 }

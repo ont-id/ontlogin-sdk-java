@@ -29,18 +29,18 @@ public class OntSdkTest {
 
         OntProcessor ontProcessor = new OntProcessor(true, "http://polaris2.ont.io:20334",
                 "52df370680de17bc5d4262c446f102a0ee0d6312", "./wallet.json", "12345678");
-        Map<String, DidProcessor> resolvers = new HashMap<>();
-        resolvers.put("ont", ontProcessor);
+        Map<String, DidProcessor> processor = new HashMap<>();
+        processor.put("ont", ontProcessor);
 
-        ontLoginSdk = new OntLoginSdk(sdkConfig, resolvers) {
+        ontLoginSdk = new OntLoginSdk(sdkConfig, processor) {
             @Override
-            public String genRandomNonceFunc() {
+            public String genRandomNonceFunc(Integer action) {
                 return UUID.randomUUID().toString().replace("-", "");
             }
 
             @Override
-            public void checkNonceExistFunc(String nonce) {
-
+            public Integer getActionByNonce(String nonce) {
+                return 0;
             }
         };
     }

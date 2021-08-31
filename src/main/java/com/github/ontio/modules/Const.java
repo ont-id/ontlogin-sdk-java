@@ -13,9 +13,9 @@ public class Const {
 
     public static String ERR_UNDEFINED = "ERR_UNDEFINED";
 
-    public static String ACTION_REGISTER = "0";
+    public static Integer ACTION_AUTHORIZATION = 0;
 
-    public static String ACTION_LOGIN = "1";
+    public static Integer ACTION_CERTIFICATION = 1;
 
     public static String SYS_VER = "1.0";
 

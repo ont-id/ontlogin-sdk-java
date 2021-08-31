@@ -3,7 +3,7 @@ package com.github.ontio.modules;
 public class ClientHello {
     private String ver;
     private String type;
-    private String action;
+    private int action;
     private ClientChallenge clientChallenge;
 
     public String getVer() {
@@ -22,11 +22,11 @@ public class ClientHello {
         this.type = type;
     }
 
-    public String getAction() {
+    public int getAction() {
         return action;
     }
 
-    public void setAction(String action) {
+    public void setAction(int action) {
         this.action = action;
     }
 

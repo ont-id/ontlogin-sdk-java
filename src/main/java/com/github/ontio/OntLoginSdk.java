@@ -21,9 +21,9 @@ public abstract class OntLoginSdk {
         this.didProcessors = didProcessors;
     }
 
-    public abstract String genRandomNonceFunc();
+    public abstract String genRandomNonceFunc(Integer action);
 
-    public abstract void checkNonceExistFunc(String nonce);
+    public abstract Integer getActionByNonce(String nonce);
 
     public String getDIDChain(String did) throws SDKException {
         String[] tmpArr = did.split(":");
@@ -35,7 +35,8 @@ public abstract class OntLoginSdk {
 
     public ServerHello generateChallenge(ClientHello req) throws SDKException {
         validateClientHello(req);
-        String uuid = genRandomNonceFunc();
+        int action = req.getAction();
+        String uuid = genRandomNonceFunc(action);
         ServerHello serverHello = new ServerHello();
         serverHello.setVer(Const.SYS_VER);
         serverHello.setType(Const.TYPE_SERVER_HELLO);
@@ -43,7 +44,10 @@ public abstract class OntLoginSdk {
         serverHello.setServer(sdkConfig.getServerInfo());
         serverHello.setChain(sdkConfig.getChain());
         serverHello.setAlg(sdkConfig.getAlg());
-        serverHello.setVCFilters(sdkConfig.getVcFilters().get(Const.ACTION_REGISTER));
+        Map<Integer, VCFilter[]> vcFilters = sdkConfig.getVcFilters();
+        if (vcFilters != null && vcFilters.get(action) != null) {
+            serverHello.setVCFilters(vcFilters.get(action));
+        }
         return serverHello;
     }
 
@@ -54,7 +58,7 @@ public abstract class OntLoginSdk {
         if (!Const.TYPE_CLIENT_HELLO.equals(req.getType())) {
             throw new SDKException(Const.ERR_TYPE_NOT_SUPPORTED);
         }
-        if (!Const.ACTION_REGISTER.equals(req.getAction()) && !Const.ACTION_LOGIN.equals(req.getAction())) {
+        if (!Const.ACTION_AUTHORIZATION.equals(req.getAction()) && !Const.ACTION_CERTIFICATION.equals(req.getAction())) {
             throw new SDKException(Const.ERR_ACTION_NOT_SUPPORTED);
         }
     }
@@ -78,7 +82,7 @@ public abstract class OntLoginSdk {
         String chain = getDIDChain(did);
 
         String nonce = res.getNonce();
-        checkNonceExistFunc(nonce);
+        Integer action = getActionByNonce(nonce);
 
         ServerInfo serverInfo = sdkConfig.getServerInfo();
         ServerInfoToSign server = new ServerInfoToSign();
@@ -101,7 +105,7 @@ public abstract class OntLoginSdk {
         //verify presentation
         String[] vps = res.getVPs();
         if (vps != null && vps.length > 0) {
-            VCFilter[] requiredTypes = sdkConfig.getVcFilters().get(type);
+            VCFilter[] requiredTypes = sdkConfig.getVcFilters().get(action);
             for (int i = 0; i < vps.length; i++) {
                 String vp = vps[i];
                 didProcessor.verifyPresentation(did, index, vp, requiredTypes);
