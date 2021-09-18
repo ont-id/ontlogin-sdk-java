@@ -7,9 +7,9 @@ public interface DidProcessor {
 
     byte[] sign(String did, int index, byte[] msg);
 
-    void verifyPresentation(String did, int index, String presentation, VCFilter[] requiredTypes) throws Exception;
+    void verifyPresentation(String presentation, VCFilter[] requiredTypes) throws Exception;
 
-    void verifyCredential(String did, int index, String credential, String[] trustedDIDs) throws Exception;
+    void verifyCredential(String credential, String[] trustedDIDs) throws Exception;
 
     String[] getCredentialJsons(String presentation) throws Exception;
 }

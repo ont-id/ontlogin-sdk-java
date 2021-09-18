@@ -65,7 +65,7 @@ public class OntProcessor implements DidProcessor {
     }
 
     @Override
-    public void verifyPresentation(String did, int index, String presentation, VCFilter[] requiredTypes) throws Exception {
+    public void verifyPresentation(String presentation, VCFilter[] requiredTypes) throws Exception {
         OntId2 ontId2 = sdk.neovm().ontId2();
         boolean verifyJWTCredSignature = ontId2.verifyJWTCredSignature(presentation);
         if (!verifyJWTCredSignature) {
@@ -73,13 +73,13 @@ public class OntProcessor implements DidProcessor {
         }
         JWTCredential jwtCredential = JWTCredential.deserializeToJWTCred(presentation);
         VerifiablePresentation verifiablePresentation = VerifiablePresentation.deserializeFromJWT(jwtCredential);
-        Proof[] proof = verifiablePresentation.proof;
-        for (int i = 0; i < proof.length; i++) {
-            boolean verifyPresentationProof = ontId2.verifyPresentationProof(verifiablePresentation, i);
-            if (!verifyPresentationProof) {
-                throw new SDKException("verifyPresentationProof failed,index:" + i);
-            }
-        }
+//        Proof[] proof = verifiablePresentation.proof;
+//        for (int i = 0; i < proof.length; i++) {
+//            boolean verifyPresentationProof = ontId2.verifyPresentationProof(verifiablePresentation, i);
+//            if (!verifyPresentationProof) {
+//                throw new SDKException("verifyPresentationProof failed,index:" + i);
+//            }
+//        }
         VerifiableCredential[] verifiableCredentials = verifiablePresentation.verifiableCredential;
         List<String> credTypes = new ArrayList<>();
         for (int i = 0; i < verifiableCredentials.length; i++) {
@@ -88,7 +88,7 @@ public class OntProcessor implements DidProcessor {
             String cred = credential.toString();
             String[] type = vc.type;
             String[] trustRoot = Util.getTrustRoot(type, requiredTypes);
-            verifyCredential(did, index, cred, trustRoot);
+            verifyCredential(cred, trustRoot);
             credTypes.addAll(Arrays.asList(type));
         }
         if (requiredTypes != null) {
@@ -111,7 +111,7 @@ public class OntProcessor implements DidProcessor {
     }
 
     @Override
-    public void verifyCredential(String did, int index, String credential, String[] trustedDIDs) throws Exception {
+    public void verifyCredential(String credential, String[] trustedDIDs) throws Exception {
         OntId2 ontId2 = sdk.neovm().ontId2();
         //1. verify signer
         boolean verifyJWTCredSignature = ontId2.verifyJWTCredSignature(credential);

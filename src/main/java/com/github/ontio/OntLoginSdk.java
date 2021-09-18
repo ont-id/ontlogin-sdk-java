@@ -108,7 +108,7 @@ public abstract class OntLoginSdk {
             VCFilter[] requiredTypes = sdkConfig.getVcFilters().get(action);
             for (int i = 0; i < vps.length; i++) {
                 String vp = vps[i];
-                didProcessor.verifyPresentation(did, index, vp, requiredTypes);
+                didProcessor.verifyPresentation(vp, requiredTypes);
             }
         }
     }
